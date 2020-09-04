@@ -1,0 +1,36 @@
+.work-title {
+  color: $burgunday;
+  margin-top: 2%;
+  font-family: PT Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 28px;
+  line-height: 35px;
+  /* or 214% */
+  letter-spacing: 0.08em;
+}
+
+.work-desc {
+  font-family: PT Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 24px;
+  /* or 125% */
+  letter-spacing: 0.05em;
+  color: $off-white;
+  margin-top: 3%;
+}
+
+.work-right {
+  font-family: PT Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 30px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: $coral;
+  margin-top: 45%;
+  margin-bottom: 5%;
+}

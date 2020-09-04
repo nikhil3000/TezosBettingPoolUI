@@ -1,0 +1,98 @@
+.landingPageRoot {
+  height: 100vh;
+}
+
+.logo {
+  position: relative;
+  width: 134px;
+  height: 31px;
+
+  font-family: PT Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 26px;
+  line-height: 30px;
+  /* or 167% */
+
+  letter-spacing: 0.08em;
+
+  color: #ffffff;
+
+  //   border: 2px solid #000000;
+}
+
+.rules-button {
+  color: $off-white;
+  background-color: $purple;
+  border-radius: 16px;
+  text-transform: uppercase;
+}
+
+.body-pos {
+  margin-top: 15%;
+  margin-left: 20%;
+  width: 60%;
+  height: auto;
+  background-color: transparent;
+}
+
+.fundsDeposited {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 24px;
+  /* identical to box height, or 133% */
+  letter-spacing: 0.08em;
+  color: $coral;
+
+  background-color: $purple;
+  padding: 4%;
+  border-radius: 12px;
+  //   align-content: center;
+  text-align: center;
+}
+
+.fundsDeposited span {
+  font-family: PT Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 30px;
+  /* identical to box height, or 167% */
+
+  letter-spacing: 0.08em;
+
+  color: #fcfcff;
+}
+
+.betform-pos {
+  margin-top: 8%;
+}
+
+.form-control {
+  background-color: transparent;
+  border: 2px solid $purple;
+  //   -webkit-text-fill-color: $-color;
+  //   color: $off-white;
+}
+
+.submit-btn-pos {
+  text-align: center;
+}
+
+.tx-status {
+  color: $coral;
+  font-size: 1.1rem;
+  font-family: PT Mono;
+  margin-left: 5%;
+  padding-right: 10%;
+  text-align: center;
+}
+
+.errorMessage {
+  color: $burgunday;
+  font-size: 1.1rem;
+  font-family: PT Mono;
+  text-align: center;
+}

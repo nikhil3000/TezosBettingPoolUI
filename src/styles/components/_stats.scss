@@ -1,0 +1,56 @@
+.stats-root {
+  //   overflow-x: hidden;
+  height: 100vh;
+}
+.stats-header {
+  font-family: PT Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 36px;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: $coral;
+  margin-top: 8%;
+}
+
+.stats-title {
+  //   position: absolute;
+  //   width: 199px;
+  //   height: 15px;
+
+  font-family: PT Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 32px;
+  line-height: 38px;
+  /* or 67% */
+  text-align: center;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
+  color: $burgunday;
+}
+
+.stats-desc {
+  font-family: PT Mono;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 26px;
+  line-height: 30px;
+  margin-top: 6px;
+  /* or 67% */
+  text-align: center;
+  letter-spacing: 0.75px;
+  text-transform: uppercase;
+  color: $off-white;
+  text-align: center;
+}
+
+.small {
+  text-transform: none;
+  size: 22px;
+}
+
+.stats-last-row {
+  margin-top: 12%;
+}
