@@ -85,9 +85,6 @@ function Body() {
         <Container className="fundsDeposited">
           Total Funds Deposited <span> $332</span>
         </Container>
-        <div className="spinner-border" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
         <Container className="betform-pos">
           <Form onSubmit={handlePlaceBet}>
             <Row>
@@ -143,12 +140,8 @@ function Body() {
       ) : null}
       {!!opHash && !txConfirmed ? (
         <Container className="tx-status">
-          {/* <Typography variant="subtitle2"> */}
-          {/* <Spinner animation="border" variant="light" role="status" />  */}
-          <div className="spinner-border"></div>
           <Spinner />
           Waiting for confirmation ...
-          {/* </Typography> */}
         </Container>
       ) : null}
 

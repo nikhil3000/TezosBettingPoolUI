@@ -19,7 +19,7 @@ const webpackConfig = {
   },
   mode: process.env.NODE_ENV,
   devtool: 'source-map',
-  entry: [path.resolve(__dirname, 'src/app.js')],
+  entry: [path.resolve(__dirname, 'src/index.js')],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'index_bundle.js',
