@@ -8,9 +8,12 @@ import {
   Form,
   Row,
   Col,
+  Modal,
 } from 'react-bootstrap';
 import { ThanosWallet } from '@thanos-wallet/dapp';
 import { Spinner } from './';
+import { backendBaseURL, oracleContract } from '../config';
+import * as axios from 'axios';
 
 export function LandingPage() {
   return (
@@ -28,6 +31,8 @@ function Body() {
   const [txConfirmed, setTxStatus] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState();
+  const [totalFunds, setTotalFunds] = React.useState();
+
   const betSizeMap = new Map();
   betSizeMap.set(5, 5);
   betSizeMap.set(10, 3);
@@ -35,6 +40,19 @@ function Body() {
   const randomNumberChange = (event) => {
     setRandomNumber(Number(event.target.value));
   };
+
+  React.useEffect(() => {
+    async function onMount() {
+      axios.post(`${backendBaseURL}/data`).then((obj) => {
+        const {
+          data: { amount },
+        } = obj;
+        setTotalFunds(amount * 10 ** -6);
+      });
+    }
+    onMount();
+  }, []);
+
   const handleBetTypeChange = (event) => {
     console.log(event.target.value);
     setBetType(Number(event.target.value));
@@ -53,16 +71,13 @@ function Body() {
       }
       if (randomNumber == 0) setRandomNumber(Math.floor(Math.random() * 10000));
 
-      const wallet = new ThanosWallet('Tezos Betting Pool');
+      const wallet = new ThanosWallet('Tezos Betting Poo');
       await wallet.connect('carthagenet');
       const tezos = await wallet.toTezos();
       const accountPkh = await tezos.wallet.pkh();
       const accountBalance = await tezos.tz.getBalance(accountPkh);
       console.info(`address: ${accountPkh}, balance: ${accountBalance}`);
-      // const c = await tezos.contract.at('KT19Duju3PHpkZ6DCjKPRN6pSasSjLQtuw2Z');
-      const counter = await tezos.wallet.at(
-        'KT19Duju3PHpkZ6DCjKPRN6pSasSjLQtuw2Z'
-      );
+      const counter = await tezos.wallet.at(oracleContract);
       const operation = await counter.methods
         .placeBet(betType, randomNumber)
         .send({ amount: betSizeMap.get(betType) });
@@ -83,7 +98,7 @@ function Body() {
     <Container>
       <Container className="body-pos mt-6 ">
         <Container className="fundsDeposited">
-          Total Funds Deposited <span> $332</span>
+          Total Funds Deposited <span>{totalFunds}tz</span>
         </Container>
         <Container className="betform-pos">
           <Form onSubmit={handlePlaceBet}>
@@ -155,15 +170,86 @@ function Body() {
 }
 
 function Header() {
+  const [show, setShow] = React.useState(false);
+  const [betList, setBetList] = React.useState([]);
+  const handleClose = () => setShow(false);
+  React.useEffect(() => {
+    // handleShow();
+  }, []);
+  const handleShow = async () => {
+    setShow(true);
+    const available = await ThanosWallet.isAvailable();
+    if (!available) {
+      throw new Error('Thanos Wallet not installed');
+    }
+    const wallet = new ThanosWallet('Tezos Betting Poo');
+    await wallet.connect('carthagenet');
+    const tezos = await wallet.toTezos();
+    const accountPkh = await tezos.wallet.pkh();
+    const accountBalance = await tezos.tz.getBalance(accountPkh);
+    console.info(`address: ${accountPkh}, balance: ${accountBalance}`);
+    let data = JSON.stringify({
+      address: accountPkh,
+    });
+    let obj = {
+      address: accountPkh,
+    };
+    axios.post(`${backendBaseURL}/data`, obj).then((res) => {
+      const {
+        data: { betList: _betList },
+      } = res;
+      console.log(res.data);
+      setBetList(_betList);
+    });
+  };
+
+  const betComponent = betList.map((value, index) => (
+    <Row key={index}>
+      <Col xs={3}>{new Date(value.timestamp).toDateString()}</Col>
+      <Col xs={3}>{String(value.parameters).split(' ')[1]} Cycles</Col>
+      <Col xs={6} style={{ overflow: 'scroll' }}>
+        {value.operation_group_hash}
+      </Col>
+    </Row>
+  ));
+
   return (
-    <Navbar variant="dark" id="landing" className="justify-content-between">
-      <Navbar.Brand className="logo mt-4">BettingPool</Navbar.Brand>
-      <Navbar.Toggle />
-      <Nav className="mt-4">
-        <a href="#rules">
-          <button className="btn rules-button">Rules</button>
-        </a>
-      </Nav>
-    </Navbar>
+    <>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        size="lg"
+        centered
+        className="tx-modal"
+      >
+        <Modal.Header className="text-center" closeButton>
+          <Modal.Title>Your Transactions</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {betList && betList.length > 0 ? (
+            betComponent
+          ) : (
+            <p>You don't have any bets from your Thanos address</p>
+          )}
+        </Modal.Body>
+      </Modal>
+      <Navbar variant="dark" id="landing" className="justify-content-between">
+        <Navbar.Brand className="logo mt-4">BettingPool</Navbar.Brand>
+        <Navbar.Toggle />
+        {/* <div> */}
+        <Nav className="mt-4">
+          <a href="#rules" className="mr-4">
+            <button className="btn rules-button">Rules</button>
+          </a>
+          {/* <a href="#rules"> */}
+          <button className="btn rules-button" onClick={handleShow}>
+            My Bets
+          </button>
+          {/* </a> */}
+        </Nav>
+
+        {/* </div> */}
+      </Navbar>
+    </>
   );
 }

@@ -17,7 +17,8 @@ export function Work() {
             <div className="work-title">2. Place your bet</div>
             <div className="work-desc">
               Place the desired bet by using Thanos Wallet Browser extension,
-              directly to the smart contract
+              directly to the smart contract. You will have to pay 5,3 or 1 tz
+              for bet type 5,10 or 15 respectively
             </div>
             <div className="work-title">3. Get Rewarded</div>
             <div className="work-desc">
@@ -25,7 +26,7 @@ export function Work() {
               will be automatically transfered to the winner chosen with random
               numbers provided by users with every bet
             </div>
-            <div className="work-title">4. Zero Rish</div>
+            <div className="work-title">4. Zero Risk</div>
             <div className="work-desc">
               At the time of prize disbursal, all other participants are also
               tranfered back their investment

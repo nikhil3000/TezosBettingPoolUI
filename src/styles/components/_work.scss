@@ -6,7 +6,6 @@
   font-weight: normal;
   font-size: 28px;
   line-height: 35px;
-  /* or 214% */
   letter-spacing: 0.08em;
 }
 
@@ -33,4 +32,8 @@
   color: $coral;
   margin-top: 45%;
   margin-bottom: 5%;
+}
+
+#rules {
+  height: 100vh;
 }
